@@ -1,8 +1,15 @@
 .TweetCard {
-  border-bottom: 1px solid #425263;
+  border-bottom: 1px solid #253341;
   padding: 5px;
 }
 
 .TweetCard__header {
   display: flex;
+  align-items: baseline;
+}
+
+.TweetCard__header h4 {
+  opacity: 0.5;
+  font-weight: 300;
+  margin-left: 5px;
 }

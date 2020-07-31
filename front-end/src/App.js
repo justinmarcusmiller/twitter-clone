@@ -3,8 +3,6 @@ import Feed from './components/Feed/Feed.jsx';
 
 import { listTweets } from './API.js';
 
-
-
 function App() {
   const  [tweets, setTweets] = useState([]);
   useEffect(() => {
