@@ -9,7 +9,7 @@ const schema = Joi.object({
   userName: Joi.string().trim(),
   fullName: Joi.string().trim(),
   password: Joi.string().trim(),
-  email: Joi.string.trim()
+  email: Joi.string().trim()
 });
 
 const router = express.Router();
