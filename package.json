@@ -1,0 +1,22 @@
+{
+  "name": "twitter-clone",
+  "version": "1.0.0",
+  "description": "MERN stack twitter clone",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justinmarcusmiller/twitter-clone.git"
+  },
+  "author": "Justin Miller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justinmarcusmiller/twitter-clone/issues"
+  },
+  "homepage": "https://github.com/justinmarcusmiller/twitter-clone#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
