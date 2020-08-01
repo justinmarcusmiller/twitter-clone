@@ -14,6 +14,7 @@ function TweetForm() {
       const created = createTweet(data);
       console.log(data.content);
       console.log(created);
+      window.location.reload()
     } catch (error) {
       console.error(error);
     }

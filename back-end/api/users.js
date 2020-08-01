@@ -1,6 +1,7 @@
 const express = require("express");
 const monk = require("monk");
 const Joi = require("joi");
+const bcrypt = require("bcrypt");
 
 const db = monk(process.env.MONGO_URI);
 const users = db.get("users");
@@ -9,7 +10,7 @@ const schema = Joi.object({
   userName: Joi.string().trim(),
   fullName: Joi.string().trim(),
   password: Joi.string().trim(),
-  email: Joi.string().trim()
+  email: Joi.string().trim(),
 });
 
 const router = express.Router();
@@ -39,15 +40,45 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // Create One
-router.post("/", async (req, res, next) => {
+router.post("/signup", async (req, res, next) => {
   try {
-    const value = await schema.validateAsync(req.body);
-    const inserted = await users.insert(value);
-    res.json(inserted);
+    let value = await schema.validateAsync(req.body);
+    //console.log(value.password);
+    bcrypt.hash(value.password, 10, (err, hash) => {
+      if ((err) || value.password == undefined) {
+        //console.log("newPassword = " + value.password);
+        console.log("ERROR " + err)
+        return res.status(500).json({
+          error: err,
+        });
+      } else {
+        value.password = hash;
+        //console.log(value.password);
+        users.insert(value);
+        res.json(value);
+      }
+    });
   } catch (error) {
     next(error);
   }
 });
+
+// // Create One
+// router.post("/signup", async (req, res, next) => {
+//   bcrypt.hash(req.body.password, 10, (err, hash) => {
+//     if(err) {
+//       return res.status(500).json({
+//         error: err
+//       });
+//     } else {
+//       console.log("old password = " + req.body.password);
+//       console.log("new password = " + hash);
+//       return res.status(200).json({
+//         newPassword: hash
+//       });
+//     }
+//   })
+// });
 
 // Update One
 router.put("/:id", async (req, res, next) => {
@@ -79,7 +110,7 @@ router.delete("/:id", async (req, res, next) => {
     await users.remove({ _id: id });
     //res.status(200).send('Success');
     res.json({
-      message: 'Success',
+      message: "Success",
     });
   } catch (error) {
     next(error);

@@ -10,6 +10,7 @@ function App() {
       const tweetData = await listTweets();
       setTweets(tweetData);
       console.log(tweetData);
+      
     })();
   }, []);
 
