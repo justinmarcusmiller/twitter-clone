@@ -9,7 +9,7 @@ function TweetForm() {
 
   const onSubmit = async (data) => {
     try {
-      data.authorUserName = casual.word + casual.integer(100, 999);
+      data.authorUserName = casual.word + casual.word + casual.integer(100, 999);
       data.authorFullName = casual.full_name;
       const created = createTweet(data);
       console.log(data.content);

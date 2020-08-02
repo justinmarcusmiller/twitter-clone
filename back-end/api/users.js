@@ -40,6 +40,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // Create One
+//TODO: Check if user is already signed up or email in use
 router.post("/signup", async (req, res, next) => {
   try {
     let value = await schema.validateAsync(req.body);
@@ -63,22 +64,6 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-// // Create One
-// router.post("/signup", async (req, res, next) => {
-//   bcrypt.hash(req.body.password, 10, (err, hash) => {
-//     if(err) {
-//       return res.status(500).json({
-//         error: err
-//       });
-//     } else {
-//       console.log("old password = " + req.body.password);
-//       console.log("new password = " + hash);
-//       return res.status(200).json({
-//         newPassword: hash
-//       });
-//     }
-//   })
-// });
 
 // Update One
 router.put("/:id", async (req, res, next) => {
