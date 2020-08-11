@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Feed from './components/Feed/Feed.jsx';
 import SignUp from './components/SignUp/SignUp.jsx'
-import SignIn from './components/SignIn/SignIn.jsx'
+import LogIn from './components/LogIn/LogIn.jsx'
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 
 import { listTweets } from './API.js';
@@ -31,8 +31,8 @@ function App() {
       />
       <Route 
         exact
-        path="/signin"
-        render={() => <SignIn/>} 
+        path="/login"
+        render={() => <LogIn/>} 
       />
     </Router>
       

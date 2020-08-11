@@ -2,8 +2,8 @@ import React from "react";
 import "./TweetForm.css";
 import { useForm } from "react-hook-form";
 import casual from "casual-browserify"
-
 import { createTweet } from '../../API.js'
+
 function TweetForm() {
   const {register, handleSubmit} = useForm();
 
