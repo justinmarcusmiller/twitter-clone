@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './LogIn.css';
 import { useForm } from "react-hook-form";
+import { validateLogin } from '../../API.js';
 
 function LogIn(props) {
   const {register, handleSubmit} = useForm();
@@ -12,6 +13,7 @@ function LogIn(props) {
   const onSubmit = async (data) => {
     try {
       console.log(data);
+      validateLogin(data);
       // Check if user is in DB
     } catch (error) {
       console.error(error);

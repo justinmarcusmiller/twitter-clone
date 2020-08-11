@@ -2,6 +2,7 @@ const express = require("express");
 const monk = require("monk");
 const Joi = require("joi");
 const bcrypt = require("bcrypt");
+//const { username } = require("casual-browserify");
 
 const db = monk(process.env.MONGO_URI);
 const users = db.get("users");
@@ -26,15 +27,38 @@ router.get("/", async (req, res, next) => {
 });
 
 // Read One
-router.get("/:id", async (req, res, next) => {
+router.get("/user/:username", async (req, res, next) => {
+  //console.log(req.params);
   try {
-    const { id } = req.params;
+    const { username } = req.params;
+    //const { password } = req.body.password;
     const item = await users.findOne({
-      _id: id,
+      userName: username,
     });
+    console.log(item);
     if (!item) return next();
     return res.json(item);
   } catch (error) {
+    console.error("ERROR");
+    next(error);
+  }
+});
+
+router.post("/login", async (req, res, next) => {
+  console.log(req.body);
+  try {
+    const username = req.body.username;
+    const user = await users.findOne(
+      {
+        userName: username
+      }
+    );
+    console.log(user);
+    if (!user) return next();
+    return res.json(user);
+  } catch (error) {
+    console.log("ERROR");
+    console.log(error);
     next(error);
   }
 });
@@ -46,9 +70,9 @@ router.post("/signup", async (req, res, next) => {
     let value = await schema.validateAsync(req.body);
     //console.log(value.password);
     bcrypt.hash(value.password, 10, (err, hash) => {
-      if ((err) || value.password == undefined) {
+      if (err || value.password == undefined) {
         //console.log("newPassword = " + value.password);
-        console.log("ERROR " + err)
+        console.log("ERROR " + err);
         return res.status(500).json({
           error: err,
         });
@@ -63,7 +87,6 @@ router.post("/signup", async (req, res, next) => {
     next(error);
   }
 });
-
 
 // Update One
 router.put("/:id", async (req, res, next) => {
