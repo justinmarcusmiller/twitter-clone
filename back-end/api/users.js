@@ -1,25 +1,19 @@
 const express = require("express");
-const monk = require("monk");
 const Joi = require("joi");
 const bcrypt = require("bcrypt");
-//const { username } = require("casual-browserify");
+const passport = require("passport");
+const passportlocal = require("passport-local").Strategy;
+const genPassword = require("../lib/passwordUtils").genPassword;
+const connection = require("../config/database");
+const User = connection.models.User;
 
-const db = monk(process.env.MONGO_URI);
-const users = db.get("users");
-
-const schema = Joi.object({
-  userName: Joi.string().trim(),
-  fullName: Joi.string().trim(),
-  password: Joi.string().trim(),
-  email: Joi.string().trim(),
-});
 
 const router = express.Router();
 
 // Read All
 router.get("/", async (req, res, next) => {
   try {
-    const items = await users.find({});
+    const items = await User.find({});
     res.json(items);
   } catch (error) {
     next(error);
@@ -44,48 +38,30 @@ router.get("/user/:username", async (req, res, next) => {
   }
 });
 
-router.post("/login", async (req, res, next) => {
-  console.log(req.body);
-  try {
-    const username = req.body.username;
-    const user = await users.findOne(
-      {
-        userName: username
-      }
-    );
-    console.log(user);
-    if (!user) return next();
-    return res.json(user);
-  } catch (error) {
-    console.log("ERROR");
-    console.log(error);
-    next(error);
-  }
-});
+router.post(
+  "/login",
+  passport.authenticate("local", {
 
-// Create One
-//TODO: Check if user is already signed up or email in use
-router.post("/signup", async (req, res, next) => {
-  try {
-    let value = await schema.validateAsync(req.body);
-    //console.log(value.password);
-    bcrypt.hash(value.password, 10, (err, hash) => {
-      if (err || value.password == undefined) {
-        //console.log("newPassword = " + value.password);
-        console.log("ERROR " + err);
-        return res.status(500).json({
-          error: err,
-        });
-      } else {
-        value.password = hash;
-        //console.log(value.password);
-        users.insert(value);
-        res.json(value);
-      }
-    });
-  } catch (error) {
-    next(error);
-  }
+  })
+);
+
+router.post("/signup", (req, res, next) => {
+  const saltHash = genPassword(req.body.password);
+
+  const salt = saltHash.salt;
+  const hash = saltHash.hash;
+
+  const newuser = new User({
+    username: req.body.username,
+    hash: hash,
+    salt: salt,
+    fullName: req.body.fullname
+  });
+
+  newuser.save().then((user) => {
+    console.log(user);
+  });
+
 });
 
 // Update One

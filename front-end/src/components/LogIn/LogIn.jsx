@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import './LogIn.css';
+import React, { useEffect } from "react";
+import "./LogIn.css";
 import { useForm } from "react-hook-form";
-import { validateLogin } from '../../API.js';
+import { validateLogin } from "../../API.js";
 
 function LogIn(props) {
-  const {register, handleSubmit} = useForm();
+  const { register, handleSubmit } = useForm();
 
   useEffect(() => {
-    document.title = "Log In"
-  },[])
+    document.title = "Log In";
+  }, []);
 
   const onSubmit = async (data) => {
     try {
@@ -18,19 +18,44 @@ function LogIn(props) {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <div id="LogIn">
-      <header id="header-login">
-        <h2>Log In</h2>
+      <header id="LogIn__header">
+        <h2>Log in to Twitter-Clone</h2>
       </header>
-      <div id="login-form-wrapper">
-        <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
-          <input name="username" type="text" placeholder="Username" required ref={register}></input>
-          <input name="password" type="password" placeholder="Password" required ref={register}></input>
-          <button>Log In</button>
+      <div id="LogIn__form__wrapper">
+        <form id="LogIn__form" onSubmit={handleSubmit(onSubmit)}>
+          <label className="form__input__label" htmlFor="username">
+            Username
+          </label>
+          <br />
+          <input
+            className="form__input"
+            name="username"
+            type="text"
+            placeholder="Username"
+            required
+            ref={register}
+          ></input>
+          <br />
+          <label className="form__input__label" htmlFor="password">
+            Password
+          </label>
+          <br />
+          <input
+            className="form__input"
+            name="password"
+            type="password"
+            placeholder="Password"
+            required
+            ref={register}
+          ></input>
+          <br />
+          <button className="form__btn">Log In</button>
         </form>
+        <a href="/">Sign up for Twitter-Clone</a>
       </div>
     </div>
   );

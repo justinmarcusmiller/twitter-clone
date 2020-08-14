@@ -22,7 +22,7 @@ function TweetForm() {
 
   return (
     <div id="TweetForm">
-      <div id="userAvi">
+      <div id="TweetForm__userAvatar">
         <svg
           width="75px"
           height="75px"
@@ -37,9 +37,9 @@ function TweetForm() {
           />
         </svg>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} id="tweet-form">
-        <input name="content" type="text" placeholder="What's happening?" required ref={register}></input>
-        <button>Tweet</button>
+      <form onSubmit={handleSubmit(onSubmit)} id="TweetForm__form">
+        <input className="TweetForm__form__input" name="content" type="text" placeholder="What's happening?" required ref={register}></input>
+        <button className="TweetForm__form__btn">Tweet</button>
       </form>
     </div>
   );

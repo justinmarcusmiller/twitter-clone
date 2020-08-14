@@ -8,28 +8,33 @@
   border-bottom: 8px solid #253341;
 }
 
-#userAvi {
+#TweetForm__userAvatar {
   border-radius: 100%;
   width: 75px;
   height: 75px;
   background-color: #253341;
+  overflow: hidden;
 }
 
-#tweet-form {
+#TweetForm__userAvatar svg {
+  margin-top: 10px;
+}
+
+#TweetForm__form {
   display: flex;
   width: 525px;
   padding: 15px;
   justify-content: space-between;
 }
 
-#tweet-form input[type="text"] {
+.TweetForm__form__input[type="text"] {
   background: none;
   border: none;
   font-size: 16px;
   padding-left: 5px;
 }
 
-#tweet-form button {
+.TweetForm__form__btn {
   background-color:#1DA1F2;
   color: white;
   padding: 10px 15px;
@@ -39,10 +44,3 @@
   border-radius: 15px;
 }
 
-#userAvi {
-  overflow: hidden;
-}
-
-#userAvi svg {
-  margin-top: 10px;
-}
