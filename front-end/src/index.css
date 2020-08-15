@@ -19,3 +19,28 @@ body {
   opacity: 1;
   background-color: #15202b;
 }
+
+.btn--primary {
+  border: none;
+  border-radius: 25px;
+  font-weight: 700;
+  background-color: #1da1f2;
+  color: #fff;
+}
+
+.btn--secondary {
+  border-radius: 25px;
+  border: 1px solid #1da1f2;
+  font-weight: 700;
+  background: none;
+  color: #1da1f2;
+}
+.btn--primary:hover {
+  background-color: #1a91da;
+  cursor: pointer;
+}
+
+.btn--secondary:hover {
+  background-color: #192734;
+  cursor: pointer;
+}

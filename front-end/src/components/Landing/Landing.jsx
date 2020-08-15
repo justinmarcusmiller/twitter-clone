@@ -10,7 +10,7 @@ function Landing() {
           <input className="userCredintials__input" type="text" name="username"></input>
           <label className="userCredintials__label" htmlFor="Password">Password</label>
           <input className="userCredintials__input" type="password" name="password"></input>
-          <button className="userCredintials__btn">Log in</button>
+          <button className="userCredintials__btn btn--secondary">Log in</button>
         </form>
         <div className="Landing__mainContent">
           <div className="Landing__mainContent__logo">
