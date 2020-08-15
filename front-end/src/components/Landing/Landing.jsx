@@ -6,7 +6,11 @@ function Landing() {
       <aside id="Landing__left"></aside>
       <main id="Landing__main">
         <form className="Landing__main__topLogin">
-          <p>Top Login</p>
+          <label className="userCredintials__label" htmlFor="username">Username</label>
+          <input className="userCredintials__input" type="text" name="username"></input>
+          <label className="userCredintials__label" htmlFor="Password">Password</label>
+          <input className="userCredintials__input" type="password" name="password"></input>
+          <button className="userCredintials__btn">Log in</button>
         </form>
         <div className="Landing__mainContent">
           <div className="Landing__mainContent__logo">
