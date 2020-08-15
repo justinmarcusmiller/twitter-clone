@@ -41,7 +41,7 @@ router.get("/user/:username", async (req, res, next) => {
 router.post(
   "/login",
   passport.authenticate("local", {
-
+    successRedirect: "feed"
   })
 );
 
@@ -63,6 +63,11 @@ router.post("/signup", (req, res, next) => {
   });
 
 });
+
+router.get("/logout", (req, res, next) => {
+  req.logout();
+  res.redirect("/");
+})
 
 // Update One
 router.put("/:id", async (req, res, next) => {
