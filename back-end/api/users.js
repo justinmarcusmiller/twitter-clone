@@ -7,7 +7,6 @@ const genPassword = require("../lib/passwordUtils").genPassword;
 const connection = require("../config/database");
 const User = connection.models.User;
 
-
 const router = express.Router();
 
 // Read All
@@ -41,7 +40,7 @@ router.get("/user/:username", async (req, res, next) => {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "feed"
+
   })
 );
 
@@ -55,19 +54,18 @@ router.post("/signup", (req, res, next) => {
     username: req.body.username,
     hash: hash,
     salt: salt,
-    fullName: req.body.fullname
+    fullName: req.body.fullname,
   });
 
   newuser.save().then((user) => {
     console.log(user);
   });
-
 });
 
 router.get("/logout", (req, res, next) => {
   req.logout();
   res.redirect("/");
-})
+});
 
 // Update One
 router.put("/:id", async (req, res, next) => {

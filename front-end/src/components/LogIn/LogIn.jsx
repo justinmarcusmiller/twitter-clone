@@ -14,7 +14,6 @@ function LogIn(props) {
     try {
       console.log(data);
       validateLogin(data);
-      // Check if user is in DB
     } catch (error) {
       console.error(error);
     }

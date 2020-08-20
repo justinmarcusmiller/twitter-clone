@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "./Landing.css";
+import { useForm } from "react-hook-form";
+import { validateLogin } from "../../API.js";
+
 function Landing() {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+      validateLogin(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div id="Landing">
       <aside id="Landing__left"></aside>
       <main id="Landing__main">
-        <form className="Landing__main__topLogin">
+        <form
+          className="Landing__main__topLogin"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <label className="userCredintials__label" htmlFor="username">
             Username
           </label>
@@ -13,6 +30,8 @@ function Landing() {
             className="userCredintials__input"
             type="text"
             name="username"
+            required
+            ref={register}
           ></input>
           <label className="userCredintials__label" htmlFor="Password">
             Password
@@ -21,6 +40,8 @@ function Landing() {
             className="userCredintials__input"
             type="password"
             name="password"
+            required
+            ref={register}
           ></input>
           <button className="userCredintials__btn btn--secondary">
             Log in
